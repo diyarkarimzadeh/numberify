@@ -1,8 +1,17 @@
 import type { AppProps } from "next/app"
 import { Inter as FontSans } from "@next/font/google"
-import { ThemeProvider } from "next-themes"
 
 import "@/styles/globals.css"
+import { useState } from "react"
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -11,16 +20,21 @@ const fontSans = FontSans({
 })
 
 export default function App({ Component, pageProps }: AppProps) {
+
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
     <>
-      <style jsx global>{`
+      <QueryClientProvider client={queryClient}>
+        <style jsx global>{`
 				:root {
 					--font-sans: ${fontSans.style.fontFamily};
 				}
 			}`}</style>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+
         <Component {...pageProps} />
-      </ThemeProvider>
+
+      </QueryClientProvider>
     </>
   )
 }

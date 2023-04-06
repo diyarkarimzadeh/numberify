@@ -1,0 +1,85 @@
+.main {
+    width: 420px;
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-radius: 14px;
+    background-color: #fcfcfc;
+    margin: 12px;
+    flex-direction: column;
+
+    &_header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        &_p {
+            font-weight: bold;
+        }
+
+        &_div {
+            padding: 8px;
+            background-color: #e8e8e8;
+            border-radius: 12px;
+
+            &_p {
+                font-weight: bold;
+                font-size: 14px;
+            }
+        }
+    }
+
+    &_price {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 36px;
+        font-weight: bold;
+
+        &_span {
+            font-size: 24px;
+        }
+    }
+
+    &_info {
+        width: 100%;
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &_p {
+            font-weight: bold;
+            color: #9f9f9f;
+        }
+    }
+
+    &_button {
+        width: 100%;
+        margin-top: 24px;
+
+        &_container {
+            width: 100%;
+            &_btn {
+                width: 100%;
+                background-color: #182b3e;
+                color: white;
+    
+                &:hover {
+                    color: black;
+                }
+            }
+        }
+
+        
+    }
+
+    
+}
