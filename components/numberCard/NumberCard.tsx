@@ -6,19 +6,19 @@ import { useRouter } from 'next/router';
 import { trimNumber } from '@/utils/utils';
 
 type Props = {
-    RESULT: string;
-    ID: string;
-    NUMBER: string;
-    AREACODE: string;
-    AMOUNT: string;
-    REPEAT: string;
-    TIME: string;
+    RESULT: string | string[];
+    ID: string | string[];
+    NUMBER: string | string[];
+    AREACODE: string | string[];
+    AMOUNT: string | string[];
+    REPEAT: string | string[];
+    TIME: string | string[];
 }
 
 const NumberCard = ({ RESULT, ID, NUMBER, AREACODE, AMOUNT, REPEAT, TIME }: Props) => {
     
     const router = useRouter();
-    const [num, setNum] = useState({ min: trimNumber(TIME), second: 0 })
+    const [num, setNum] = useState({ min: trimNumber(typeof TIME === "string" && TIME), second: 0 })
 
     let intervalRef = useRef<any>();
 

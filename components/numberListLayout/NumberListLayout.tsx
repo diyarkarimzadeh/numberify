@@ -5,11 +5,6 @@ import ServiceCard from '@/components/serviceCard/ServiceCard';
 import styles from './NumberListLayout.module.scss'
 import { BuyNumberDataType } from '@/pages/services';
 
-type GetNumbersQueryType = {
-    data: NumberDataType[];
-    status: "idle" | "error" | "loading" | "success";
-}
-
 type Props = {
     service: string,
     country: string,
@@ -18,11 +13,7 @@ type Props = {
 
 const NumberLayout = ({ service, country, buyNumber }: Props) => {
 
-    let numbersData: GetNumbersQueryType;
-
-    if (service && country) {
-        numbersData = useQuery(["numbers", service, country], () => getNumbers({ service, country }).then((res) => res.data));
-    }
+    const numbersData = useQuery(["numbers", service, country], () => getNumbers({ service, country }).then((res) => res.data));
 
     if (numbersData?.status === "loading") {
         return (

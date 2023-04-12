@@ -22,15 +22,15 @@ const index = () => {
 
     const [serviceValue, setServiceValue] = useState('');
     const [countryValue, setCountryValue] = useState('');
-    const [buyNumberData, setBuyNumerData] = useState<BuyNumberDataType>({service: '', country: '', operator: ''});
-    const {handleBuy, buyNumberLoading} = useBuyNumber({...buyNumberData});
-    
+    const [buyNumberData, setBuyNumerData] = useState<BuyNumberDataType>({ service: '', country: '', operator: '' });
+    const { handleBuy, buyNumberLoading } = useBuyNumber({ ...buyNumberData });
+
 
     const { data: servicesData, status: servicesStatus } = useQuery("services", () => getServices().then((res) => res));
     const { data: countriesData, status: countriesStatus } = useQuery("countries", () => getCountries().then((res) => res));
 
-    const buyNumber = ({service, country, operator}: BuyNumberDataType) => {
-        setBuyNumerData({service: service, country: country, operator: operator});
+    const buyNumber = ({ service, country, operator }: BuyNumberDataType) => {
+        setBuyNumerData({ service: service, country: country, operator: operator });
         handleBuy();
     }
 
@@ -54,8 +54,8 @@ const index = () => {
         )
     }
 
-    if(buyNumberLoading) {
-        return(
+    if (buyNumberLoading) {
+        return (
             <Layout>
                 <div className='flex justify-center items-center mt-8'>
                     <p>Loading...</p>
@@ -77,7 +77,8 @@ const index = () => {
                     <div>
                         <p className={styles.text}>Please select your service and your country of choice from the list 👽</p>
                     </div>
-
+                    
+                    <div className={styles.selector_container}>
                     <div className={styles.selector}>
                         <FormControl sx={{ m: 1, minWidth: 260 }}>
                             <InputLabel id="demo-select-small">Services</InputLabel>
@@ -112,12 +113,17 @@ const index = () => {
                             </Select>
                         </FormControl>
                     </div>
+                    </div>
+
+                    
 
                 </div>
 
-                <div className={styles.services_numberlayout}>
+                {serviceValue && countryValue ? <div className={styles.services_numberlayout}>
                     <NumberLayout service={serviceValue} country={countryValue} buyNumber={buyNumber} />
-                </div>
+                </div> : <></>}
+
+
 
             </div>
         </Layout>
