@@ -21,6 +21,7 @@ type Props = {
 const NumberCard = ({ result, id, number, areacode, amount, reapet, time, code, status, checkForCode }: Props) => {
 
     const router = useRouter();
+
     const [num, setNum] = useState({ min: trimNumber(typeof time === "string" && time), second: 0 })
 
     let intervalRef = useRef<NodeJS.Timer | null>(null);
@@ -68,7 +69,7 @@ const NumberCard = ({ result, id, number, areacode, amount, reapet, time, code, 
                 <Button onClick={checkForCode} variant="outline" className={styles.main_button_btn}>Check for Code</Button>
             </div>
             <div className={styles.main_button}>
-                <Button onClick={() => { router.push('/') }} variant="link" className={styles.main_button_btnback}>Back to Home</Button>
+                <Button onClick={() => { router.push('/') }} variant="outline" className={styles.main_button_btnback}>Back to Home</Button>
             </div>
         </div>
     )

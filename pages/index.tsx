@@ -51,17 +51,17 @@ export default function IndexPage() {
         <div className={styles.features_item}>
           <Icons.fast className={styles.features_icon} />
           <h2 className={styles.features_h2}>Fast</h2>
-          <p>Getting a temp number takes less than 5 minutes. <br className="hidden sm:inline" />Without any bullsh*t Sign Up</p>
+          <p>Getting a temp number takes less than 5 minutes. <br className="hidden sm:inline" />Without any bullsh*t signup</p>
         </div>
         <div className={styles.features_item}>
           <Icons.shield />
           <h2 className={styles.features_h2}>Secure</h2>
-          <p>It's not secure to use your real phone number <br className="hidden sm:inline" /> for services you use so a Temp number is a <br className="hidden sm:inline" />more secure option</p>
+          <p>It's not secure to use your real phone number <br className="hidden sm:inline" /> for services you use so a temp number is a <br className="hidden sm:inline" />more secure option</p>
         </div>
         <div className={styles.features_item}>
           <Icons.money />
           <h2 className={styles.features_h2}>Low Cost</h2>
-          <p>It's very cheap to get a Temp Number, <br className="hidden sm:inline" /> Prices are diffrent base on service or location <br className="hidden sm:inline" /> but usually it's 2$ to 7$ range.</p>
+          <p>It's very cheap to get a temp number, <br className="hidden sm:inline" /> Prices are diffrent base on service or location <br className="hidden sm:inline" /> but usually it's $2 to $7 range</p>
         </div>
 
       </section>

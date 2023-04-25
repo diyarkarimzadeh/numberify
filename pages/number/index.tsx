@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { Layout } from '@/components/layout'
 import NumberCard from '@/components/NumberCard/NumberCard';
 import styles from '../../styles/number.module.scss'
-import { useState } from 'react'
 import { useQuery } from 'react-query';
 import { getCode } from '@/services/GetCode/getcode';
 
@@ -23,26 +22,25 @@ const index = () => {
     refetch();
   }
 
-
-
-
   return (
     <div>
-      {routerData.result && routerData.id ? <Layout>
-        <div className={styles.container}>
-          <NumberCard
-            result={routerData.result}
-            id={routerData.id}
-            number={routerData.number}
-            areacode={routerData.areaCode}
-            amount={routerData.amount}
-            reapet={routerData.repeat}
-            time={routerData.time}
-            code={data?.CODE ? data.CODE : null}
-            status={status}
-            checkForCode={handleCheckForCode} />
-        </div>
-      </Layout> : <p>Your not allowed to see this page</p>}
+
+      {routerData.result && routerData.id ?
+        <Layout>
+          <div className={styles.container}>
+            <NumberCard
+              result={routerData.result}
+              id={routerData.id}
+              number={routerData.number}
+              areacode={routerData.areaCode}
+              amount={routerData.amount}
+              reapet={routerData.repeat}
+              time={routerData.time}
+              code={data?.CODE ? data.CODE : null}
+              status={status}
+              checkForCode={handleCheckForCode} />
+          </div>
+        </Layout> : <p>Your not allowed to see this page</p>}
 
     </div>
   )

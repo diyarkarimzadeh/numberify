@@ -13,9 +13,9 @@ type Props = {
 
 const NumberLayout = ({ service, country, buyNumber }: Props) => {
 
-    const numbersData = useQuery(["numbers", service, country], () => getNumbers({ service, country }).then((res) => res.data));
+    const { data, status } = useQuery(["numbers", service, country], () => getNumbers({ service, country }).then((res) => res.data));
 
-    if (numbersData?.status === "loading") {
+    if (status === "loading") {
         return (
             <div className='flex justify-center items-center mt-8'>
                 <p>Loading...</p>
@@ -26,7 +26,7 @@ const NumberLayout = ({ service, country, buyNumber }: Props) => {
     return (
         <div className={styles.container}>
             <div className={styles.container_list}>
-                {numbersData?.data?.map((item) => (
+                {data?.map((item) => (
                     <div>
                         <ServiceCard service={item.service} country={item.country} count={item.count} amount={item.amount} repeat={item.repeat} active={item.active} time={item.time} description={item.description} operator={item.operator} buyNumber={buyNumber} />
                     </div>

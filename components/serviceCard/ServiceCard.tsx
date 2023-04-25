@@ -61,7 +61,7 @@ const ServiceCard = ({ service, country, operator, count, amount, buyNumber }: N
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. You will purchase a Temp Number of {getCountryById(country)} for {getServiceById(service)}.
+            This action cannot be undone. You will purchase a Temp Number of {countryName()} for {serviceName()}.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

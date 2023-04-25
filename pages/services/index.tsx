@@ -22,7 +22,7 @@ const index = () => {
 
     const [serviceValue, setServiceValue] = useState('');
     const [countryValue, setCountryValue] = useState('');
-    const [buyNumberData, setBuyNumerData] = useState<BuyNumberDataType>({ service: '', country: '', operator: '' });
+    const [buyNumberData, setBuyNumberData] = useState<BuyNumberDataType>({ service: '', country: '', operator: '' });
     const { handleBuy, buyNumberLoading } = useBuyNumber({ ...buyNumberData });
 
 
@@ -30,11 +30,11 @@ const index = () => {
     const { data: countriesData, status: countriesStatus } = useQuery("countries", () => getCountries().then((res) => res));
 
     const buyNumber = ({ service, country, operator }: BuyNumberDataType) => {
-        setBuyNumerData({ service, country, operator });
+        setBuyNumberData({ service, country, operator });
         handleBuy();
     }
 
-    if (servicesStatus === 'loading' && countriesStatus === 'loading') {
+    if (servicesStatus === 'loading' && countriesStatus === 'loading' || buyNumberLoading) {
         return (
             <Layout>
                 <div className='flex justify-center items-center mt-8'>
@@ -49,16 +49,6 @@ const index = () => {
             <Layout>
                 <div className='flex justify-center items-center mt-8'>
                     <p>An error happened, Please try again later.</p>
-                </div>
-            </Layout>
-        )
-    }
-
-    if (buyNumberLoading) {
-        return (
-            <Layout>
-                <div className='flex justify-center items-center mt-8'>
-                    <p>Loading...</p>
                 </div>
             </Layout>
         )
@@ -93,8 +83,6 @@ const index = () => {
                                     ))}
                                 </Select>
                             </FormControl>
-
-
                         </div>
 
                         <div className={styles.selector}>
