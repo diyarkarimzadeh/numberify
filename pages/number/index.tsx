@@ -1,23 +1,49 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { Layout } from '@/components/layout'
-import NumberCard from '@/components/numberCard/NumberCard';
+import NumberCard from '@/components/NumberCard/NumberCard';
 import styles from '../../styles/number.module.scss'
+import { useState } from 'react'
+import { useQuery } from 'react-query';
+import { getCode } from '@/services/GetCode/getcode';
 
 const index = () => {
 
-    const router = useRouter();
-    const routerData = router.query;
+  const router = useRouter();
+  const routerData = router.query;
+  const id = routerData.id;
+
+  const { data, status, refetch } = useQuery(
+    ['code', id],
+    () => getCode({ id }).then((res) => res.data),
+    { enabled: false, refetchOnWindowFocus: false, cacheTime: 0 }
+  );
+
+  const handleCheckForCode = () => {
+    refetch();
+  }
+
+
+
 
   return (
     <div>
       {routerData.result && routerData.id ? <Layout>
-      <div className={styles.container}>
-        <NumberCard RESULT={routerData.result} ID={routerData.id} NUMBER={routerData.number} AREACODE={routerData.areaCode} AMOUNT={routerData.amount} REPEAT={routerData.repeat} TIME={routerData.time}/>
-        
-      </div>
-    </Layout> : <p>Your not allowed to see this page</p>}
-    
+        <div className={styles.container}>
+          <NumberCard
+            result={routerData.result}
+            id={routerData.id}
+            number={routerData.number}
+            areacode={routerData.areaCode}
+            amount={routerData.amount}
+            reapet={routerData.repeat}
+            time={routerData.time}
+            code={data?.CODE ? data.CODE : null}
+            status={status}
+            checkForCode={handleCheckForCode} />
+        </div>
+      </Layout> : <p>Your not allowed to see this page</p>}
+
     </div>
   )
 }

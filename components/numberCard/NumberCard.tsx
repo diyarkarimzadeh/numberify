@@ -6,21 +6,24 @@ import { useRouter } from 'next/router';
 import { trimNumber } from '@/utils/utils';
 
 type Props = {
-    RESULT: string | string[];
-    ID: string | string[];
-    NUMBER: string | string[];
-    AREACODE: string | string[];
-    AMOUNT: string | string[];
-    REPEAT: string | string[];
-    TIME: string | string[];
+    result: string | string[];
+    id: string | string[];
+    number: string | string[];
+    areacode: string | string[];
+    amount: string | string[];
+    reapet: string | string[];
+    time: string | string[];
+    code: string;
+    status: "loading" | "success" | "idle" | "error"
+    checkForCode: () => void;
 }
 
-const NumberCard = ({ RESULT, ID, NUMBER, AREACODE, AMOUNT, REPEAT, TIME }: Props) => {
-    
-    const router = useRouter();
-    const [num, setNum] = useState({ min: trimNumber(typeof TIME === "string" && TIME), second: 0 })
+const NumberCard = ({ result, id, number, areacode, amount, reapet, time, code, status, checkForCode }: Props) => {
 
-    let intervalRef = useRef<any>();
+    const router = useRouter();
+    const [num, setNum] = useState({ min: trimNumber(typeof time === "string" && time), second: 0 })
+
+    let intervalRef = useRef<NodeJS.Timer | null>(null);
 
     const decreaseSec = () => {
         setNum({ ...num, second: num.second - 1 })
@@ -45,22 +48,27 @@ const NumberCard = ({ RESULT, ID, NUMBER, AREACODE, AMOUNT, REPEAT, TIME }: Prop
         <div className={styles.main}>
             <div className={styles.main_header}>
                 <div><p className={styles.main_header_p}>Here is your Temp Number</p></div>
-                <div className={styles.main_header_div}><p className={styles.main_header_div_p}>ID: {ID}</p></div>
+                <div className={styles.main_header_div}><p className={styles.main_header_div_p}>{num.min >= 10 ? num.min : `0${num.min}`}:{num.second >= 10 ? num.second : `0${num.second}`}</p></div>
             </div>
 
             <div className={styles.main_price}>
-                <p>{NUMBER}</p>
+                <p>{number}</p>
             </div>
             <div className={styles.main_info}>
                 <div>
-                    <p className={styles.main_info_p}>Operator Code: 1</p>
+                    <p className={styles.main_info_p}>Your code:</p>
                 </div>
                 <div>
-                    <p className={styles.main_info_p}>{num.min >= 10 ? num.min : `0${num.min}`}:{num.second >= 10 ? num.second : `0${num.second}`}</p>
+                    <p className={styles.main_info_p}>
+                        {status === "idle" ? 'Nothing to show here' : status === "loading" ? 'Loading...' : status === "success" && code}
+                    </p>
                 </div>
             </div>
             <div className={styles.main_button}>
-                <Button variant="outline" className={styles.main_button_btn}>Check for Code</Button>
+                <Button onClick={checkForCode} variant="outline" className={styles.main_button_btn}>Check for Code</Button>
+            </div>
+            <div className={styles.main_button}>
+                <Button onClick={() => { router.push('/') }} variant="link" className={styles.main_button_btnback}>Back to Home</Button>
             </div>
         </div>
     )

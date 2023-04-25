@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useQuery } from 'react-query';
-import { getNumbers, NumberDataType } from '@/services/Numbers/getNumbers';
-import ServiceCard from '@/components/serviceCard/ServiceCard';
+import { getNumbers, NumberDataType } from '@/services/Numbers/getnumbers';
+import ServiceCard from '@/components/ServiceCard/ServiceCard';
 import styles from './NumberListLayout.module.scss'
 import { BuyNumberDataType } from '@/pages/services';
 

@@ -2,14 +2,14 @@ import React, { ChangeEvent } from 'react'
 import { useState } from 'react';
 import { Layout } from '@/components/layout'
 import { useQuery } from "react-query";
-import { getServices } from '@/services/Services/getServices'
+import { getServices } from '@/services/Services/getservices'
 import styles from '../../styles/services.module.scss'
-import { getCountries } from '@/services/Countries/getCountries';
+import { getCountries } from '@/services/Countries/getcountries';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import NumberLayout from '@/components/numberListLayout/NumberListLayout';
+import NumberLayout from '@/components/NumberListLayout/NumberListLayout';
 import useBuyNumber from '@/hooks/useBuyNumber';
 
 export type BuyNumberDataType = {
@@ -30,11 +30,11 @@ const index = () => {
     const { data: countriesData, status: countriesStatus } = useQuery("countries", () => getCountries().then((res) => res));
 
     const buyNumber = ({ service, country, operator }: BuyNumberDataType) => {
-        setBuyNumerData({ service: service, country: country, operator: operator });
+        setBuyNumerData({ service, country, operator });
         handleBuy();
     }
 
-    if (servicesStatus && countriesStatus === 'loading') {
+    if (servicesStatus === 'loading' && countriesStatus === 'loading') {
         return (
             <Layout>
                 <div className='flex justify-center items-center mt-8'>
@@ -44,7 +44,7 @@ const index = () => {
         )
     }
 
-    if (servicesStatus && countriesStatus === 'error') {
+    if (servicesStatus === 'error' || countriesStatus === 'error') {
         return (
             <Layout>
                 <div className='flex justify-center items-center mt-8'>
@@ -77,51 +77,51 @@ const index = () => {
                     <div>
                         <p className={styles.text}>Please select your service and your country of choice from the list 👽</p>
                     </div>
-                    
+
                     <div className={styles.selector_container}>
-                    <div className={styles.selector}>
-                        <FormControl sx={{ m: 1, minWidth: 260 }}>
-                            <InputLabel id="demo-select-small">Services</InputLabel>
-                            <Select
-                                value={serviceValue}
-                                label="Services"
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => setServiceValue(e.target.value)}
-                            >
-                                {servicesData?.data.map((service) => (
+                        <div className={styles.selector}>
+                            <FormControl sx={{ m: 1, minWidth: 260 }}>
+                                <InputLabel id="demo-select-small">Services</InputLabel>
+                                <Select
+                                    value={serviceValue}
+                                    label="Services"
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setServiceValue(e.target.value)}
+                                >
+                                    {servicesData?.data.map((service) => (
 
-                                    <MenuItem value={service.id}>{service.emoji ? service.emoji : '👾'} {service.name_en}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                                        <MenuItem value={service.id}>{service.emoji ? service.emoji : '👾'} {service.name_en}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
 
 
+                        </div>
+
+                        <div className={styles.selector}>
+                            <FormControl sx={{ m: 1, minWidth: 260 }}>
+                                <InputLabel id="demo-select-small">Countries</InputLabel>
+                                <Select
+                                    value={countryValue}
+                                    label="Countries"
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setCountryValue(e.target.value)}
+                                >
+                                    <MenuItem value='0'>Doesn't Matter</MenuItem>
+                                    {countriesData?.data.map((country) => (
+
+                                        <MenuItem value={country.id}>{country.emoji ? country.emoji : '👾'} {country.name_en}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
                     </div>
 
-                    <div className={styles.selector}>
-                        <FormControl sx={{ m: 1, minWidth: 260 }}>
-                            <InputLabel id="demo-select-small">Countries</InputLabel>
-                            <Select
-                                value={countryValue}
-                                label="Countries"
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => setCountryValue(e.target.value)}
-                            >
-                                <MenuItem value='0'>Doesn't Matter</MenuItem>
-                                {countriesData?.data.map((country) => (
 
-                                    <MenuItem value={country.id}>{country.emoji ? country.emoji : '👾'} {country.name_en}</MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </div>
-                    </div>
-
-                    
 
                 </div>
 
                 {serviceValue && countryValue ? <div className={styles.services_numberlayout}>
                     <NumberLayout service={serviceValue} country={countryValue} buyNumber={buyNumber} />
-                </div> : <></>}
+                </div> : null}
 
 
 

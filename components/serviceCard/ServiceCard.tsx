@@ -1,6 +1,7 @@
 import React from 'react'
+import { useCallback } from "react";
 import styles from './ServicesCard.module.scss'
-import { NumberDataType } from '@/services/Numbers/getNumbers';
+import { NumberDataType } from '@/services/Numbers/getnumbers';
 import { getServiceById } from '@/utils/utils';
 import { getCountryById } from '@/utils/utils';
 import { Button } from "@/components/ui/button"
@@ -18,14 +19,22 @@ import {
 } from "@/components/ui/alert-dialog"
 import { BuyNumberDataType } from '@/pages/services';
 
-const ServiceCard = ({ service, country, operator, count, amount, repeat, time, active, description, buyNumber }: NumberDataType & { buyNumber: ({ service, country, operator }: BuyNumberDataType) => void }) => {
+const ServiceCard = ({ service, country, operator, count, amount, buyNumber }: NumberDataType & { buyNumber: ({ service, country, operator }: BuyNumberDataType) => void }) => {
+
+  const countryName = useCallback((): string => {
+    return getCountryById(country);
+  }, [country]);
+
+  const serviceName = useCallback(() => {
+    return getServiceById(service);
+  }, [service])
 
   return (
     <AlertDialog>
       <div className={styles.main}>
         <div className={styles.main_header}>
-          <div><p className={styles.main_header_p}>{getServiceById(service)}</p></div>
-          <div className={styles.main_header_div}><p className={styles.main_header_div_p}>{getCountryById(country)}</p></div>
+          <div><p className={styles.main_header_p}>{serviceName()}</p></div>
+          <div className={styles.main_header_div}><p className={styles.main_header_div_p}>{countryName()}</p></div>
         </div>
 
         <div className={styles.main_price}>
