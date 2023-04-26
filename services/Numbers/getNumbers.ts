@@ -2,12 +2,12 @@ import { config } from '@/api';
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
-export type Params = {
+interface Params {
   service: string | string[];
   country?: string | string[];
-};
+}
 
-export type NumberDataType = {
+interface NumberDataType {
   service: string;
   country: string;
   operator: string;
@@ -17,12 +17,12 @@ export type NumberDataType = {
   time: string;
   active: number;
   description: string;
-};
+}
 
-export type NumberResponseType = {
+interface NumberResponseType {
   status: number;
   data: NumberDataType[];
-};
+}
 
 export const getNumbers = ({ service, country }: Params): Promise<NumberResponseType> => {
   if (country !== '0') {

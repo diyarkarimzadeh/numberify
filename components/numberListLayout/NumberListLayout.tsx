@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 import { useQuery } from 'react-query';
-import { getNumbers, NumberDataType } from '@/services/Numbers/getnumbers';
+import { getNumbers } from '@/services/Numbers/getnumbers';
 import ServiceCard from '@/components/ServiceCard/ServiceCard';
 import styles from './NumberListLayout.module.scss'
-import { BuyNumberDataType } from '@/pages/services';
 
-type Props = {
+interface buyNumberProps {
+    service: string;
+    country: string;
+    operator: string;
+}
+
+interface Props {
     service: string,
     country: string,
-    buyNumber: ({ service, country, operator }: BuyNumberDataType) => void
+    buyNumber: ({ service, country, operator }: buyNumberProps) => void
 }
 
 const NumberLayout = ({ service, country, buyNumber }: Props) => {
@@ -28,7 +33,7 @@ const NumberLayout = ({ service, country, buyNumber }: Props) => {
             <div className={styles.container_list}>
                 {data?.map((item) => (
                     <div>
-                        <ServiceCard service={item.service} country={item.country} count={item.count} amount={item.amount} repeat={item.repeat} active={item.active} time={item.time} description={item.description} operator={item.operator} buyNumber={buyNumber} />
+                        <ServiceCard service={item.service} country={item.country} count={item.count} amount={item.amount} operator={item.operator} buyNumber={buyNumber} />
                     </div>
                 ))}
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import { useCallback } from "react";
 import styles from './ServicesCard.module.scss'
-import { NumberDataType } from '@/services/Numbers/getnumbers';
 import { getServiceById } from '@/utils/utils';
 import { getCountryById } from '@/utils/utils';
 import { Button } from "@/components/ui/button"
@@ -17,9 +16,23 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { BuyNumberDataType } from '@/pages/services';
 
-const ServiceCard = ({ service, country, operator, count, amount, buyNumber }: NumberDataType & { buyNumber: ({ service, country, operator }: BuyNumberDataType) => void }) => {
+interface buyNumberProps {
+  service: string;
+  country: string;
+  operator: string;
+}
+
+interface Props {
+  service: string;
+  country: string;
+  operator: string;
+  count: string;
+  amount: string;
+  buyNumber: ({ service, country, operator }: buyNumberProps) => void
+}
+
+const ServiceCard = ({ service, country, operator, count, amount, buyNumber }: Props) => {
 
   const countryName = useCallback((): string => {
     return getCountryById(country);

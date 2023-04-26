@@ -22,26 +22,26 @@ const NumberCard = ({ result, id, number, areacode, amount, reapet, time, code, 
 
     const router = useRouter();
 
-    const [num, setNum] = useState({ min: trimNumber(typeof time === "string" && time), second: 0 })
+    const [timer, setTimer] = useState({ minute: trimNumber(typeof time === "string" && time), second: 0 })
 
     let intervalRef = useRef<NodeJS.Timer | null>(null);
 
     const decreaseSec = () => {
-        setNum({ ...num, second: num.second - 1 })
+        setTimer({ ...timer, second: timer.second - 1 })
     };
 
     const decreaseMin = () => {
-        setNum({ min: num.min - 1, second: 59 })
+        setTimer({ minute: timer.minute - 1, second: 59 })
     }
 
     useEffect(() => {
         intervalRef.current = setInterval(() => {
-            if (num.second > 0) { decreaseSec() } else {
-                if (num.min > 0) { decreaseMin() } else { router.push('/') }
+            if (timer.second > 0) { decreaseSec() } else {
+                if (timer.minute > 0) { decreaseMin() } else { router.push('/') }
             }
         }, 1000);
         return () => clearInterval(intervalRef.current);
-    }, [num]);
+    }, [timer]);
 
 
     return (
@@ -49,7 +49,7 @@ const NumberCard = ({ result, id, number, areacode, amount, reapet, time, code, 
         <div className={styles.main}>
             <div className={styles.main_header}>
                 <div><p className={styles.main_header_p}>Here is your Temp Number</p></div>
-                <div className={styles.main_header_div}><p className={styles.main_header_div_p}>{num.min >= 10 ? num.min : `0${num.min}`}:{num.second >= 10 ? num.second : `0${num.second}`}</p></div>
+                <div className={styles.main_header_div}><p className={styles.main_header_div_p}>{timer.minute >= 10 ? timer.minute : `0${timer.minute}`}:{timer.second >= 10 ? timer.second : `0${timer.second}`}</p></div>
             </div>
 
             <div className={styles.main_price}>

@@ -2,7 +2,7 @@ import { config } from '@/api';
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
-export type ServiceDataType = {
+interface ServiceDataType {
   id: string;
   name: string;
   name_en: string;
@@ -10,12 +10,12 @@ export type ServiceDataType = {
   image: string;
   active: number;
   emoji: string;
-};
+}
 
-export type ServicesResponseType = {
+interface ServicesResponseType {
   status: number;
   data: ServiceDataType[];
-};
+}
 
 export const getServices = (): Promise<ServicesResponseType> => {
   return config.get(`?apikey=${apiKey}&method=getservice`);

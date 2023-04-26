@@ -10,9 +10,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import NumberLayout from '@/components/NumberListLayout/NumberListLayout';
-import useBuyNumber from '@/hooks/useBuyNumber';
+import useBuyNumber from '@/hooks/use-buynumber';
 
-export type BuyNumberDataType = {
+interface BuyNumberDataType {
     service: string;
     country: string;
     operator: string;
@@ -71,7 +71,7 @@ const index = () => {
                     <div className={styles.selector_container}>
                         <div className={styles.selector}>
                             <FormControl sx={{ m: 1, minWidth: 260 }}>
-                                <InputLabel id="demo-select-small">Services</InputLabel>
+                                <InputLabel>Services</InputLabel>
                                 <Select
                                     value={serviceValue}
                                     label="Services"
@@ -96,7 +96,7 @@ const index = () => {
                                     <MenuItem value='0'>Doesn't Matter</MenuItem>
                                     {countriesData?.data.map((country) => (
 
-                                        <MenuItem value={country.id}>{country.emoji ? country.emoji : '👾'} {country.name_en}</MenuItem>
+                                        <MenuItem value={country.id}>{country.emoji ? country.emoji : null} {country.name_en}</MenuItem>
                                     ))}
                                 </Select>
                             </FormControl>

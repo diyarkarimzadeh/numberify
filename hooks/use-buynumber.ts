@@ -4,18 +4,22 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-type Props = {
+interface Props {
   service: string;
   country: string;
   operator: string;
-};
+}
+
+enum Result {
+  success = 1,
+}
 
 const useBuyNumber = ({ service, country, operator }: Props) => {
   const router = useRouter();
   const [buyNumberLoading, setBuyNumberLoading] = useState(false);
   const [fetch, setFetch] = useState(false);
 
-  const { data, status } = useQuery(
+  const { data, status, refetch } = useQuery(
     ['buyNumber', service, country, operator],
     () => buyNumber({ country, service, operator }).then((res) => res.data),
     { enabled: fetch }
@@ -24,7 +28,7 @@ const useBuyNumber = ({ service, country, operator }: Props) => {
   useEffect(() => {
     if (status === 'success') {
       setFetch(false);
-      if (data.RESULT === 1) {
+      if (data.RESULT === Result.success) {
         router.push(
           {
             pathname: '/number',

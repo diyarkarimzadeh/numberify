@@ -5,6 +5,7 @@ import NumberCard from '@/components/NumberCard/NumberCard';
 import styles from '../../styles/number.module.scss'
 import { useQuery } from 'react-query';
 import { getCode } from '@/services/GetCode/getcode';
+import NotAllowed from '@/components/NotAllowed/NotAllowed';
 
 const index = () => {
 
@@ -40,7 +41,7 @@ const index = () => {
               status={status}
               checkForCode={handleCheckForCode} />
           </div>
-        </Layout> : <p>Your not allowed to see this page</p>}
+        </Layout> : <NotAllowed />}
 
     </div>
   )

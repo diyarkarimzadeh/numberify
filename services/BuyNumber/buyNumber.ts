@@ -2,13 +2,13 @@ import { config } from '@/api';
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
-export type Params = {
+interface Params {
   country: string;
   service: string;
   operator: string;
-};
+}
 
-export type BuyNumberDataType = {
+interface BuyNumberDataType {
   RESULT: number;
   ID: number;
   NUMBER: number;
@@ -16,12 +16,12 @@ export type BuyNumberDataType = {
   AMOUNT: number;
   REPEAT: number;
   TIME: string;
-};
+}
 
-export type BuyNumberResponseType = {
+interface BuyNumberResponseType {
   status: number;
   data: BuyNumberDataType;
-};
+}
 
 export const buyNumber = ({ country, service, operator }: Params): Promise<BuyNumberResponseType> => {
   return config.get(

@@ -2,7 +2,7 @@ import { config } from '@/api';
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
-export type CountryDataType = {
+interface CountryDataType {
   id: string;
   name: string;
   name_en: string;
@@ -10,12 +10,12 @@ export type CountryDataType = {
   emoji: string;
   image: string;
   active: string;
-};
+}
 
-export type CountryResponseType = {
+interface CountryResponseType {
   status: number;
   data: CountryDataType[];
-};
+}
 
 export const getCountries = (): Promise<CountryResponseType> => {
   return config.get(`?apikey=${apiKey}&method=getcountry`);
