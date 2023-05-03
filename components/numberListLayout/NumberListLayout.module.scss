@@ -1,16 +1,15 @@
 .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 52px;
+
+  &_list {
+    width: 60%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    margin-bottom: 52px;
-
-    &_list {
-        width: 60%;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }

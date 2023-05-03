@@ -1,24 +1,22 @@
 .features {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    margin-top: 52px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 52px;
 
-    &_item {
-        margin-right: 32px;
-        margin-left: 32px;
+  &_item {
+    margin-right: 32px;
+    margin-left: 32px;
 
-        &_icon {
-            width: 24px;
-            height: 24px;
-        }
-
-        
+    &_icon {
+      width: 24px;
+      height: 24px;
     }
+  }
 
-    &_h2 {
-        margin-top: 12px;
-        font-weight: bold;
-        font-size: 24px;
-    }
+  &_h2 {
+    margin-top: 12px;
+    font-weight: bold;
+    font-size: 24px;
+  }
 }

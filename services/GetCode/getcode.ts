@@ -1,22 +1,22 @@
-import { config } from '@/api';
+import { config } from '@/api'
 
-const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+const apiKey = process.env.NEXT_PUBLIC_API_KEY
 
 interface CodeDataType {
-  RESULT: number;
-  CODE: string;
-  DESCRIPTION: string;
+  RESULT: number
+  CODE: string
+  DESCRIPTION: string
 }
 
 interface CodeResponseType {
-  status: number;
-  data: CodeDataType;
+  status: number
+  data: CodeDataType
 }
 
 interface Params {
-  id: string | string[];
+  id: string | string[]
 }
 
 export const getCode = ({ id }: Params): Promise<CodeResponseType> => {
-  return config.get(`?apikey=${apiKey}&method=checkstatus&id=${id}&test=2`);
-};
+  return config.get(`?apikey=${apiKey}&method=checkstatus&id=${id}&test=2`)
+}

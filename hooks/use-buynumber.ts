@@ -1,64 +1,57 @@
-import { buyNumber } from '@/services/BuyNumber/buynumber';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { buyNumber } from '@/services/BuyNumber/buynumber'
+import { BuyNumberDataType } from '@/services/BuyNumber/buynumber'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 interface Props {
-  service: string;
-  country: string;
-  operator: string;
+  service: string
+  country: string
+  operator: string
 }
 
 enum Result {
   success = 1,
 }
 
-const useBuyNumber = ({ service, country, operator }: Props) => {
-  const router = useRouter();
-  const [buyNumberLoading, setBuyNumberLoading] = useState(false);
-  const [fetch, setFetch] = useState(false);
+const useBuyNumber = () => {
+  const router = useRouter()
+  const [buyNumberLoading, setBuyNumberLoading] = useState(false)
+  const [response, setResponse] = useState<BuyNumberDataType>()
+  const [status, setStatus] = useState<number>()
 
-  const { data, status, refetch } = useQuery(
-    ['buyNumber', service, country, operator],
-    () => buyNumber({ country, service, operator }).then((res) => res.data),
-    { enabled: fetch }
-  );
+  const handleBuyNumber = ({ service, country, operator }: Props): void => {
+    setBuyNumberLoading(true)
+    buyNumber({ country, service, operator }).then(res => {
+      setResponse(res.data)
+      setStatus(res.status)
+    })
+  }
 
   useEffect(() => {
-    if (status === 'success') {
-      setFetch(false);
-      if (data.RESULT === Result.success) {
-        router.push(
-          {
-            pathname: '/number',
-            query: {
-              amount: data.AMOUNT,
-              areaCode: data.AREACODE,
-              id: data.ID,
-              number: data.NUMBER,
-              repeat: data.REPEAT,
-              result: data.RESULT,
-              time: data.TIME,
-            },
+    if (response?.RESULT === Result.success) {
+      router.push(
+        {
+          pathname: '/number',
+          query: {
+            amount: response.AMOUNT,
+            areaCode: response.AREACODE,
+            id: response.ID,
+            number: response.NUMBER,
+            repeat: response.REPEAT,
+            result: response.RESULT,
+            time: response.TIME,
           },
-          '/number'
-        );
-      } else {
-        console.log('error');
-      }
+        },
+        '/number'
+      )
     }
-  }, [status]);
-
-  const handleBuy = () => {
-    setBuyNumberLoading(true);
-    setFetch(true);
-  };
+  }, [status])
 
   return {
-    handleBuy,
+    handleBuyNumber,
     buyNumberLoading,
-  };
-};
+  }
+}
 
-export default useBuyNumber;
+export default useBuyNumber

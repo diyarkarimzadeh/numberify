@@ -1,27 +1,25 @@
-import type { AppProps } from "next/app"
-import { Inter as FontSans } from "@next/font/google"
-
-import "@/styles/globals.css"
-import { useState } from "react"
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { Inter as FontSans } from '@next/font/google'
+import type { AppProps } from 'next/app'
+import '@/styles/globals.css'
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { useState } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
-});
+})
 
 const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
 })
 
 export default function App({ Component, pageProps }: AppProps) {
-
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(() => new QueryClient())
 
   return (
     <>
@@ -33,7 +31,6 @@ export default function App({ Component, pageProps }: AppProps) {
 			}`}</style>
 
         <Component {...pageProps} />
-
       </QueryClientProvider>
     </>
   )
