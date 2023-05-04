@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useState, useRef, useEffect } from 'react'
 
-type Props = {
+interface Props {
   result: string | string[]
   id: string | string[]
   number: string | string[]
@@ -23,7 +23,7 @@ const NumberCard = ({ result, id, number, areacode, amount, reapet, time, code, 
 
   const [timer, setTimer] = useState({ minute: trimNumber(typeof time === 'string' && time), second: 0 })
 
-  let intervalRef = useRef<NodeJS.Timer | null>(null)
+  let intervalRef = useRef<NodeJS.Timer>()
 
   const decreaseSec = () => {
     setTimer({ ...timer, second: timer.second - 1 })
